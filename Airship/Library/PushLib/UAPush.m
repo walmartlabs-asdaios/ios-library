@@ -279,8 +279,22 @@ static Class _uiClass;
 #pragma mark APNS wrapper
 - (void)registerForRemoteNotificationTypes:(UIRemoteNotificationType)types {
     self.notificationTypes = types;
-    
     if (self.pushEnabled) {
+#if TARGET_IPHONE_SIMULATOR
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if(![defaults objectForKey:@"simulator_permissioned"]) {
+            NSString *title = [NSString stringWithFormat:@"“%@” Would Like to Send You Push Notifications", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"]];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                            message:@"Notifications my include alerts, sounds, and icon badges.  These can be configured in Settings"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Don't Allow"
+                                                  otherButtonTitles:@"OK", nil];
+            [alert show];
+            [alert release];
+            [defaults setObject:title forKey:@"simulator_permissioned"];
+            [defaults synchronize];
+        }
+#endif
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationTypes];
     }
 }
