@@ -24,7 +24,7 @@
  */
 
 #import "UAInboxMessageList.h"
-#import "UAInboxAPIClient+Internal.h"
+#import "UAInboxAPIClient.h"
 
 @class UAInboxDBManager;
 
