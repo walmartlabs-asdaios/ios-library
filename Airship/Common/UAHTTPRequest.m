@@ -23,7 +23,7 @@
  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "UAHTTPRequest+Internal.h"
+#import "UAHTTPRequest.h"
 
 static NSString *defaultUserAgentString_;
 

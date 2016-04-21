@@ -24,7 +24,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "UAHTTPRequest+Internal.h"
+#import "UAHTTPRequest.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

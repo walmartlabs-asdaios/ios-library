@@ -27,7 +27,7 @@
 #import "UAInbox.h"
 #import "UAInboxMessage.h"
 #import "UAInboxMessageList.h"
-#import "UAHTTPRequest+Internal.h"
+#import "UAHTTPRequest.h"
 #import "UAHTTPConnection+Internal.h"
 #import "UAirship.h"
 #import "UAConfig.h"

@@ -24,7 +24,7 @@
  */
 
 #import "UAHTTPConnection+Internal.h"
-#import "UAHTTPRequest+Internal.h"
+#import "UAHTTPRequest.h"
 
 #import "UAGlobal.h"
 #import "UA_Base64.h"
