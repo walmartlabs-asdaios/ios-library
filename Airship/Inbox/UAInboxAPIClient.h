@@ -49,11 +49,11 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "UAHTTPConnection+Internal.h"
 
 @class UAUser;
 @class UAConfig;
 @class UAPreferenceDataStore;
+@class UAHTTPRequest;
 
 NS_ASSUME_NONNULL_BEGIN
 

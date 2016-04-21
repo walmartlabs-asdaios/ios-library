@@ -39,6 +39,7 @@
 #import "UAInbox+Internal.h"
 #import "UAActionRegistry.h"
 
+#import "UAHTTPConnection+Internal.h"
 #import "UAAppDelegateProxy+Internal.h"
 #import "NSJSONSerialization+UAAdditions.h"
 #import "UAURLProtocol.h"
