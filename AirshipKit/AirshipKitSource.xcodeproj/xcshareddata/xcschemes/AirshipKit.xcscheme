@@ -29,6 +29,15 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "494DD9561B0EB677009C134E"
+            BuildableName = "AirshipKit.framework"
+            BlueprintName = "AirshipKit"
+            ReferencedContainer = "container:AirshipKitSource.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
