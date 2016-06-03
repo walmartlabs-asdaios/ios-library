@@ -371,13 +371,16 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
 
     // Setup the background task
     // This exits the same way as the performSelector:withObject:afterDelay method
-    self.singleLocationBackgroundIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+    NSLog(@"beginBackgroundTaskWithName UALocationService.reportCurrentLocation");
+    self.singleLocationBackgroundIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"UALocationService.reportCurrentLocation" expirationHandler:^{
         // This eventually calls stopSingleLocation, which shuts down the background task
         // Same task as performSelector:withObject:afterDelay, so if that works, this works
         [self shutdownSingleLocationWithTimeoutError];
 
         if (self.singleLocationBackgroundIdentifier != UIBackgroundTaskInvalid) {
             [[UIApplication sharedApplication] endBackgroundTask:self.singleLocationBackgroundIdentifier];
+            self.singleLocationBackgroundIdentifier = UIBackgroundTaskInvalid;
+            NSLog(@"endBackgroundTask UALocationService.reportCurrentLocation");
         }
     }];
 
@@ -459,6 +462,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     // endBackgroundTask. The background task will be invalidated. 
     [[UIApplication sharedApplication] endBackgroundTask:self.singleLocationBackgroundIdentifier];
     self.singleLocationBackgroundIdentifier = UIBackgroundTaskInvalid;
+    NSLog(@"endBackgroundTask UALocationService.reportCurrentLocation");
 }
 
 #pragma mark -

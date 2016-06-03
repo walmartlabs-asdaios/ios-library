@@ -965,7 +965,8 @@ BOOL deferChannelCreationOnForeground = false;
         [self resetPendingTagsWithAddTags:addTags removeTags:removeTags];
     };
 
-    __block UIBackgroundTaskIdentifier backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+    NSLog(@"beginBackgroundTaskWithName UAPush.updateChannelTagGroups");
+    __block UIBackgroundTaskIdentifier backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"UAPush.updateChannelTagGroups" expirationHandler:^{
         UA_LTRACE(@"Tag groups background task expired.");
         if (resetPendingTags) {
             resetPendingTags();
@@ -976,6 +977,7 @@ BOOL deferChannelCreationOnForeground = false;
         if (backgroundTask != UIBackgroundTaskInvalid) {
             [[UIApplication sharedApplication] endBackgroundTask:backgroundTask];
             backgroundTask = UIBackgroundTaskInvalid;
+            NSLog(@"endBackgroundTask UAPush.updateChannelTagGroups");
         }
     }];
 
@@ -992,6 +994,7 @@ BOOL deferChannelCreationOnForeground = false;
         // End background task
         [[UIApplication sharedApplication] endBackgroundTask:backgroundTask];
         backgroundTask = UIBackgroundTaskInvalid;
+        NSLog(@"endBackgroundTask UAPush.updateChannelTagGroups");
     };
 
     UATagGroupsAPIClientFailureBlock failureBlock = ^(UAHTTPRequest *request) {
@@ -1003,6 +1006,7 @@ BOOL deferChannelCreationOnForeground = false;
         // End background task
         [[UIApplication sharedApplication] endBackgroundTask:backgroundTask];
         backgroundTask = UIBackgroundTaskInvalid;
+        NSLog(@"endBackgroundTask UAPush.updateChannelTagGroups");
     };
 
     [self.tagGroupsAPIClient updateChannelTags:self.channelID
@@ -1170,10 +1174,12 @@ BOOL deferChannelCreationOnForeground = false;
 
 - (BOOL)beginRegistrationBackgroundTask {
     if (self.registrationBackgroundTask == UIBackgroundTaskInvalid) {
-        self.registrationBackgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        NSLog(@"beginBackgroundTaskWithName UAPush.beginRegistrationBackgroundTask");
+        self.registrationBackgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"UAPush.beginRegistrationBackgroundTask" expirationHandler:^{
             [self.channelRegistrar cancelAllRequests];
             [[UIApplication sharedApplication] endBackgroundTask:self.registrationBackgroundTask];
             self.registrationBackgroundTask = UIBackgroundTaskInvalid;
+            NSLog(@"endBackgroundTask UAPush.beginRegistrationBackgroundTask");
         }];
     }
 
@@ -1184,6 +1190,7 @@ BOOL deferChannelCreationOnForeground = false;
     if (self.registrationBackgroundTask != UIBackgroundTaskInvalid) {
         [[UIApplication sharedApplication] endBackgroundTask:self.registrationBackgroundTask];
         self.registrationBackgroundTask = UIBackgroundTaskInvalid;
+        NSLog(@"endBackgroundTask UAPush.beginRegistrationBackgroundTask");
     }
 }
 

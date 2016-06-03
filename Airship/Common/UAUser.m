@@ -154,9 +154,11 @@ NSString * const UAUserCreatedNotification = @"com.urbanairship.notification.use
         return;
     }
 
-    __block UIBackgroundTaskIdentifier backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+    NSLog(@"beginBackgroundTaskWithName UAUser.createUser");
+    __block UIBackgroundTaskIdentifier backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"UAUser.createUser" expirationHandler:^{
         [[UIApplication sharedApplication] endBackgroundTask:backgroundTask];
         backgroundTask = UIBackgroundTaskInvalid;
+        NSLog(@"endBackgroundTask UAUser.createUser");
         [self.apiClient cancelAllRequests];
     }];
 
@@ -185,6 +187,7 @@ NSString * const UAUserCreatedNotification = @"com.urbanairship.notification.use
         [self sendUserCreatedNotification];
         [[UIApplication sharedApplication] endBackgroundTask:backgroundTask];
         backgroundTask = UIBackgroundTaskInvalid;
+        NSLog(@"endBackgroundTask UAUser.createUser");
     };
 
     UAUserAPIClientFailureBlock failure = ^(UAHTTPRequest *request) {
@@ -192,6 +195,7 @@ NSString * const UAUserCreatedNotification = @"com.urbanairship.notification.use
         self.creatingUser = NO;
         [[UIApplication sharedApplication] endBackgroundTask:backgroundTask];
         backgroundTask = UIBackgroundTaskInvalid;
+        NSLog(@"endBackgroundTask UAUser.createUser");
     };
 
 
@@ -214,9 +218,11 @@ NSString * const UAUserCreatedNotification = @"com.urbanairship.notification.use
         return;
     }
 
-    __block UIBackgroundTaskIdentifier backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+    NSLog(@"beginBackgroundTaskWithName UAUser.updateUser");
+    __block UIBackgroundTaskIdentifier backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"UAUser.updateUser" expirationHandler:^{
         [[UIApplication sharedApplication] endBackgroundTask:backgroundTask];
         backgroundTask = UIBackgroundTaskInvalid;
+        NSLog(@"endBackgroundTask UAUser.updateUser");
         [self.apiClient cancelAllRequests];
     }];
 
@@ -231,11 +237,13 @@ NSString * const UAUserCreatedNotification = @"com.urbanairship.notification.use
                          UA_LINFO(@"Updated user %@ successfully.", self.username);
                          [[UIApplication sharedApplication] endBackgroundTask:backgroundTask];
                          backgroundTask = UIBackgroundTaskInvalid;
+                         NSLog(@"endBackgroundTask UAUser.updateUser");
                      }
                      onFailure:^(UAHTTPRequest *request) {
                          UA_LDEBUG(@"Failed to update user.");
                          [[UIApplication sharedApplication] endBackgroundTask:backgroundTask];
                          backgroundTask = UIBackgroundTaskInvalid;
+                         NSLog(@"endBackgroundTask UAUser.updateUser");
                      }];
 
 }

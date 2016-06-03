@@ -610,12 +610,14 @@ typedef void (^UAAnalyticsUploadCompletionBlock)(void);
         return;
     }
 
-    __block UIBackgroundTaskIdentifier backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+    NSLog(@"beginBackgroundTaskWithName UAAnalytics.sendWithDelay");
+    __block UIBackgroundTaskIdentifier backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"UAAnalytics.sendWithDelay" expirationHandler:^{
         UA_LTRACE(@"Analytics background task expired.");
         [self stopSends];
         if (backgroundTask != UIBackgroundTaskInvalid) {
             [[UIApplication sharedApplication] endBackgroundTask:backgroundTask];
             backgroundTask = UIBackgroundTaskInvalid;
+            NSLog(@"endBackgroundTask UAAnalytics.sendWithDelay");
         }
     }];
 
@@ -657,6 +659,7 @@ typedef void (^UAAnalyticsUploadCompletionBlock)(void);
         UA_LTRACE(@"Analytics data send completed with background task: %lu", (unsigned long)backgroundTask);
         if (backgroundTask != UIBackgroundTaskInvalid) {
             [[UIApplication sharedApplication] endBackgroundTask:backgroundTask];
+            NSLog(@"endBackgroundTask UAAnalytics.sendWithDelay");
         }
     }];
 
