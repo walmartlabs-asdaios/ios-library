@@ -401,6 +401,7 @@ typedef void (^UAAnalyticsUploadCompletionBlock)(void);
         UIBackgroundTaskIdentifier backgroundTask = [self.sendTimer.userInfo unsignedIntegerValue];
 
         [[UIApplication sharedApplication] endBackgroundTask:backgroundTask];
+        NSLog(@"endBackgroundTask UAAnalytics.sendWithDelay");
     }
 
     [self.sendTimer invalidate];
