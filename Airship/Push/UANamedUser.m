@@ -270,7 +270,6 @@ NSString *const UANamedUserRemoveTagGroupsSettingsKey = @"UANamedUserRemoveTagGr
         [self resetPendingTagsWithAddTags:addTags removeTags:removeTags];
     };
 
-    NSLog(@"beginBackgroundTaskWithName UANamedUser.updateTags");
     __block UIBackgroundTaskIdentifier backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"UANamedUser.updateTags" expirationHandler:^{
         UA_LTRACE(@"NamedUser background task expired.");
         if (resetPendingTags) {
@@ -282,7 +281,6 @@ NSString *const UANamedUserRemoveTagGroupsSettingsKey = @"UANamedUserRemoveTagGr
         if (backgroundTask != UIBackgroundTaskInvalid) {
             [[UIApplication sharedApplication] endBackgroundTask:backgroundTask];
             backgroundTask = UIBackgroundTaskInvalid;
-            NSLog(@"endBackgroundTask UANamedUser.updateTags");
         }
     }];
 
@@ -299,7 +297,6 @@ NSString *const UANamedUserRemoveTagGroupsSettingsKey = @"UANamedUserRemoveTagGr
         // End background task
         [[UIApplication sharedApplication] endBackgroundTask:backgroundTask];
         backgroundTask = UIBackgroundTaskInvalid;
-        NSLog(@"endBackgroundTask UANamedUser.updateTags");
     };
 
     UATagGroupsAPIClientFailureBlock failureBlock = ^(UAHTTPRequest *request) {
@@ -311,7 +308,6 @@ NSString *const UANamedUserRemoveTagGroupsSettingsKey = @"UANamedUserRemoveTagGr
         // End background task
         [[UIApplication sharedApplication] endBackgroundTask:backgroundTask];
         backgroundTask = UIBackgroundTaskInvalid;
-        NSLog(@"endBackgroundTask UANamedUser.updateTags");
     };
 
     [self.tagGroupsAPIClient updateNamedUserTags:self.identifier
